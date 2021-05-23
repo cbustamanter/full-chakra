@@ -5,14 +5,14 @@ import {
   Box,
   Button,
   CloseButton,
+  Link,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { NextPage } from "next";
-import { withUrqlClient, WithUrqlProps } from "next-urql";
+import { withUrqlClient } from "next-urql";
 import NextLink from "next/link";
-import { Link } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { FunctionComponent, PropsWithChildren, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "../../components/Container";
 import { InputField } from "../../components/InputField";
 import { Wrapper } from "../../components/Wrapper";
@@ -20,19 +20,20 @@ import { useChangePasswordMutation } from "../../generated/graphql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 import { toErrorMap } from "../../utils/toErrorMap";
 
-const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
+const ChangePassword: NextPage = () => {
   const router = useRouter();
+  const token = router.query.token;
   const [, changePassword] = useChangePasswordMutation();
   const [tokenError, setTokenError] = useState("");
   return (
-    <Container height="100vh" justifyContent="center">
+    <Container minHeight="100vh" justifyContent="center">
       <Wrapper variant="small">
         <Formik
           initialValues={{ newPassword: "" }}
           onSubmit={async (values, { setErrors }) => {
             const response = await changePassword({
               newPassword: values.newPassword,
-              token,
+              token: typeof token === "string" ? token : "",
             });
             if (response.data?.changePassword?.errors) {
               const errorMap = toErrorMap(response.data.changePassword.errors);
@@ -80,14 +81,15 @@ const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
   );
 };
 
-ChangePassword.getInitialProps = ({ query }) => {
-  return {
-    token: query.token as string,
-  };
-};
+// ChangePassword.getInitialProps = ({ query }) => {
+//   return {
+//     token: query.token as string,
+//   };
+// };
 
-export default withUrqlClient(createUrqlClient)(
-  ChangePassword as FunctionComponent<
-    PropsWithChildren<WithUrqlProps | { token: string }>
-  >
-);
+// export default withUrqlClient(createUrqlClient)(
+//   ChangePassword as FunctionComponent<
+//     PropsWithChildren<WithUrqlProps | { token: string }>
+//   >
+// );
+export default withUrqlClient(createUrqlClient)(ChangePassword);

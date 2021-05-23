@@ -11,7 +11,7 @@ const Login: React.FC<loginProps> = ({}) => {
 
   return (
     <>
-      <Container height="100vh" justifyContent="center">
+      <Container minHeight="100vh" justifyContent="center">
         <Flex
           flexDirection="column"
           p={14}

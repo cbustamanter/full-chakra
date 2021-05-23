@@ -17,7 +17,7 @@ const Register: React.FC<registerProps> = ({}) => {
   const router = useRouter();
   const [, register] = useRegisterMutation();
   return (
-    <Container height="100vh" justifyContent="center">
+    <Container minHeight="100vh" justifyContent="center">
       <Wrapper variant="small">
         <Formik
           initialValues={{ username: "", password: "", email: "" }}

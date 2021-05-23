@@ -31,13 +31,13 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   } else {
     body = (
       <>
-        <Button mr={4} variant="link" colorScheme="linkedin">
+        <Button mr={4} variant="link" colorScheme="messenger">
           {data.me.username}
         </Button>
         <Button
           variant="link"
           isLoading={logoutFetching}
-          colorScheme="teal"
+          colorScheme="red"
           onClick={() => logout()}
         >
           Logout

@@ -12,7 +12,7 @@ const ForgotPassword: React.FC<{}> = ({}) => {
   const [, forgotPassword] = useForgotPasswordMutation();
   const [complete, setComplete] = useState(false);
   return (
-    <Container height="100vh" justifyContent="center">
+    <Container minHeight="100vh" justifyContent="center">
       <Wrapper variant="small">
         <Formik
           initialValues={{ email: "" }}
