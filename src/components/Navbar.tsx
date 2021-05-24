@@ -1,4 +1,11 @@
-import { Box, Button, Flex, Link, useColorMode } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Link,
+  useColorMode,
+} from "@chakra-ui/react";
 import React from "react";
 import NextLink from "next/link";
 import { DarkModeSwitch } from "./DarkModeSwitch";
@@ -31,6 +38,11 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   } else {
     body = (
       <>
+        <NextLink href="/create-post">
+          <Button mr={2} colorScheme="whatsapp" as={Link}>
+            create post
+          </Button>
+        </NextLink>
         <Button mr={4} variant="link" colorScheme="messenger">
           {data.me.username}
         </Button>
@@ -46,10 +58,15 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
     );
   }
   return (
-    <Flex p={6} background={bgColor[colorMode]}>
+    <Flex p={6} background={bgColor[colorMode]} align="center">
+      <NextLink href="/">
+        <Link>
+          <Heading>Home</Heading>
+        </Link>
+      </NextLink>
       <Box ml={"auto"}>
-        <DarkModeSwitch mr={6} />
         {body}
+        <DarkModeSwitch ml={6} />
       </Box>
     </Flex>
   );

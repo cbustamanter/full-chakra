@@ -9,7 +9,7 @@ import { createUrqlClient } from "../utils/createUrqlClient";
 
 const Index = () => {
   const [variables, setVariables] = useState({
-    limit: 10,
+    limit: 15,
     cursor: null as null | string,
   });
   const [{ data, fetching }] = usePostsQuery({
@@ -20,21 +20,13 @@ const Index = () => {
   }
   return (
     <Layout minHeight="100vh">
-      <Flex mb={6}>
-        <Heading>Posts</Heading>
-        <NextLink href="/create-post">
-          <Button ml="auto" colorScheme="messenger">
-            Create post
-          </Button>
-        </NextLink>
-      </Flex>
       {!data && fetching ? (
         <div>Loading...</div>
       ) : (
         <Stack spacing={8}>
-          {data!.posts.posts.map((post) => (
-            <Feature key={post.id} title={post.title} desc={post.textSnippet} />
-          ))}
+          {data!.posts.posts.map((post) =>
+            !post ? null : <Feature key={post.id} post={post} />
+          )}
         </Stack>
       )}
       {data && data.posts.hasMore ? (
