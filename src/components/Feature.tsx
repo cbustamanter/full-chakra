@@ -1,4 +1,4 @@
-import { ChevronDownIcon, ChevronUpIcon, DeleteIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import {
   Box,
   BoxProps,
@@ -11,11 +11,8 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React, { useState } from "react";
-import {
-  PostSnippetFragment,
-  useDeletePostMutation,
-  useVoteMutation,
-} from "../generated/graphql";
+import { PostSnippetFragment, useVoteMutation } from "../generated/graphql";
+import { EditDeleteButtons } from "./EditDeleteButtons";
 
 type FeatureProps = BoxProps & {
   post: PostSnippetFragment;
@@ -27,7 +24,6 @@ export const Feature: React.FC<FeatureProps> = ({ post, ...props }) => {
       "not-loading"
     );
   const [, vote] = useVoteMutation();
-  const [, deletePost] = useDeletePostMutation();
   return (
     <Flex p={5} shadow="md" borderWidth="1px" {...props} alignItems="center">
       <Flex
@@ -85,14 +81,7 @@ export const Feature: React.FC<FeatureProps> = ({ post, ...props }) => {
           <Text flex={1} mt={4}>
             {post.textSnippet}
           </Text>
-          <IconButton
-            aria-label="delete"
-            colorScheme="red"
-            onClick={() => {
-              deletePost({ id: post.id });
-            }}
-            icon={<DeleteIcon />}
-          />
+          <EditDeleteButtons id={post.id} creatorId={post.creator.id} />
         </Flex>
       </Box>
     </Flex>

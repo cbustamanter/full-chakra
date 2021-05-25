@@ -11,10 +11,12 @@ import NextLink from "next/link";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
+import { useRouter } from "next/router";
 
 interface NavbarProps {}
 
 export const Navbar: React.FC<NavbarProps> = ({}) => {
+  const router = useRouter();
   const { colorMode } = useColorMode();
   const bgColor = { light: "gray.200", dark: "gray.800" };
   const [{ data, fetching }] = useMeQuery({
@@ -50,7 +52,10 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
           variant="link"
           isLoading={logoutFetching}
           colorScheme="red"
-          onClick={() => logout()}
+          onClick={async () => {
+            await logout();
+            router.reload();
+          }}
         >
           Logout
         </Button>
