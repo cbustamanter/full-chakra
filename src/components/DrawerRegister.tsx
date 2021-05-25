@@ -37,7 +37,7 @@ const DrawerRegister: React.FC<DrawerRegisterProps> = ({}) => {
       <Drawer
         isOpen={isOpen}
         placement="right"
-        initialFocusRef={firstField}
+        // initialFocusRef={firstField}
         onClose={onClose}
       >
         <DrawerOverlay />
@@ -52,7 +52,7 @@ const DrawerRegister: React.FC<DrawerRegisterProps> = ({}) => {
               <Box>
                 <FormLabel htmlFor="username">Name</FormLabel>
                 <Input
-                  ref={firstField}
+                  // ref={firstField}
                   id="username"
                   placeholder="Please enter user name"
                 />
